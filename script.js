@@ -25,11 +25,11 @@ let prom = Promise.all([
             let end = performance.now();
             promiseTimes.push({ name: "Promise 3", time: ((end - start) / 1000).toFixed(2) });
             resolve();
-        }, 3000);
+        }, 2500);
     })
 ]);
 
-let defaultRow = document.getElementById("defaultRow");
+let defaultRow = document.getElementById("loading");
 let tableBody = document.getElementsByTagName("tbody")[0];
 
 prom.then(() => {
@@ -43,7 +43,7 @@ prom.then(() => {
 
         sum += parseFloat(`${promiseTimes[i].time}.toFixed(2)`);
 
-        td2.textContent = Math.floor(`${promiseTimes[i].time}`); // Display time taken
+        td2.textContent = Math.round(`${promiseTimes[i].time}`); // Display time taken
         tr.append(td1, td2);
         tableBody.appendChild(tr);
     }
