@@ -32,16 +32,19 @@ let prom = Promise.all([
 let defaultRow = document.getElementById("loading");
 let tableBody = document.getElementsByTagName("tbody")[0];
 
+let maxTime = 0;
 prom.then(() => {
     defaultRow.remove();
-    let sum = 0;
     for (let i = 0; i < promiseTimes.length; i++) {
         let tr = document.createElement("tr");
         let td1 = document.createElement("td");
         td1.textContent = promiseTimes[i].name;
         let td2 = document.createElement("td");
 
-        sum += parseFloat(`${promiseTimes[i].time}.toFixed(2)`);
+        let timeTaken = parseFloat(`${promiseTimes[i].time}.toFixed(2)`);
+        if(timeTaken>maxTime){
+            maxTime=timeTaken;
+        }
 
         td2.textContent = Math.round(`${promiseTimes[i].time}`); // Display time taken
         tr.append(td1, td2);
@@ -55,7 +58,7 @@ prom.then(() => {
     finalCol1.textContent= "Total";
     finalCol1.style.fontWeight = "bold"
     let finalCol2 = document.createElement("td");
-    finalCol2.textContent = sum.toFixed(2);
+    finalCol2.textContent = maxTime;
     finalRow.append(finalCol1,finalCol2);
     tableBody.appendChild(finalRow);
 });
