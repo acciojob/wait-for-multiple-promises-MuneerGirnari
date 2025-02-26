@@ -25,7 +25,7 @@ let prom = Promise.all([
             let end = performance.now();
             promiseTimes.push({ name: "Promise 3", time: ((end - start) / 1000).toFixed(2) });
             resolve();
-        }, 2500);
+        }, 3000);
     })
 ]);
 
@@ -46,12 +46,11 @@ prom.then(() => {
             maxTime=timeTaken;
         }
 
-        td2.textContent = Math.round(`${promiseTimes[i].time}`); // Display time taken
+        td2.textContent = parseFloat(`${promiseTimes[i].time}.toFixed(2)`); // Display time taken
         tr.append(td1, td2);
         tableBody.appendChild(tr);
     }
 
-    console.log(sum)
 
     let finalRow = document.createElement("tr");
     let finalCol1 = document.createElement("td");
